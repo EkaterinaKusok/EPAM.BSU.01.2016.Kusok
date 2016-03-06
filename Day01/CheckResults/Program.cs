@@ -11,11 +11,11 @@ namespace CheckResults
     {
         static void Main(string[] args)
         {
-            double x = 3126;
-            int n = 5;
+            double x = 1025;
+            int n = 4;
             Console.Write(MathClass.FindNthRoot(x,n,0.0001));
             Console.WriteLine();
-            Console.Write(Math.Pow(3126, (double)1/n));
+            Console.Write(Math.Pow(x, (double)1/n));
 
             Console.ReadKey();
         }
