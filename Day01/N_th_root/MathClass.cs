@@ -10,7 +10,6 @@ namespace N_th_root
     {
         public static double FindNthRoot(double a, int n, double eps = 0.0001)
         {
-            //корень определяется для натуральных n>=2
             if (n < 2)
                 throw new FormatException($"Wrong input data: {n}<2!");
             double x0, x1 = 1;
@@ -21,7 +20,7 @@ namespace N_th_root
             } while (Math.Abs(x1 - x0) > eps);
             return x1;
         }
-        public static double QuickInvolute(double x, int n)
+        private static double QuickInvolute(double x, int n)
         {
             if (n < 0)
                 throw new FormatException($"Wrong input data: {n}<0!");
