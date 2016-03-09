@@ -29,6 +29,7 @@ namespace CheckResults
                     Console.Write('['+string.Join(", ", cur)+']');
                 Console.WriteLine();
             }
+
             Console.ReadKey();
         }
     }
