@@ -21,12 +21,12 @@ namespace CheckResults
             Console.WriteLine("------------------------------");
             int[][] arr = new int[][] {null, new int[] {1, 4, 6}, new int[] { -1, 0, 100 }, new int[] { 5, 5, 5 } , new int[] { } };
             SortClass.SortJaggedArray(arr,Orders.Descending, Keys.Sum);
-            foreach (var VARIABLE in arr)
+            foreach (var cur in arr)
             {
-                if(VARIABLE == null)
+                if(cur == null)
                     Console.Write("null");
                 else
-                    Console.Write('['+string.Join(", ", VARIABLE)+']');
+                    Console.Write('['+string.Join(", ", cur)+']');
                 Console.WriteLine();
             }
             Console.ReadKey();
