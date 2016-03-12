@@ -4,23 +4,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace N_th_root
+namespace FindRoot
 {
     public class MathClass
     {
-        public static double FindNthRoot(double a, int n, double eps = 0.0001)
+        public static double FindNthRoot(double number, int root, double eps = 0.0001)
         {
-            if (n < 2)
-                throw new FormatException($"Wrong input data: {n}<2!");
-            double x0, x1 = 1;
+            if (root < 1)
+                throw new FormatException($"Wrong input data: {root}<1!");
+            if (root%2==0 && number<0)
+                throw new FormatException($"Wrong input data:  Root doesn't exist.");
+
+            double prev, next = 1;
             do
             {
-                x0 = x1;
-                x1 = ((n - 1)*x0 + a/QuickInvolute(x0, n-1))/n;
-            } while (Math.Abs(x1 - x0) > eps);
-            return x1;
+                prev = next;
+                //next = ((root - 1)*prev + number/QuickInvolute(prev, root-1))/root;
+                next = ((root - 1) * prev + number / Math.Pow(prev, root - 1)) / root;
+            } while (Math.Abs(next - prev) > eps);
+            return next;
         }
-        private static double QuickInvolute(double x, int n)
+
+        /*private static double QuickInvolute(double x, int n)
         {
             if (n < 0)
                 throw new FormatException($"Wrong input data: {n}<0!");
@@ -28,7 +33,7 @@ namespace N_th_root
                 return 1;
             double z = x;
             double res = 1;
-            while (n>0)
+            while (n > 0)
             {
                 if (n%2 == 1)
                     res *= z;
@@ -36,6 +41,6 @@ namespace N_th_root
                 n /= 2;
             }
             return res;
-        }
+        }*/
     }
 }

@@ -5,7 +5,7 @@ using System.Runtime.Serialization.Formatters;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyArray
+namespace JaggedArray
 {
     public enum Orders { Ascending, Descending };
     public enum Keys { MinValue, MaxValue, Sum };

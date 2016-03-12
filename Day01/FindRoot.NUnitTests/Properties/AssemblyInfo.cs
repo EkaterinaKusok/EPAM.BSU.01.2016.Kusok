@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("FindRoot")]
+[assembly: AssemblyTitle("FindRoot.NUnitTests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("FindRoot")]
+[assembly: AssemblyProduct("FindRoot.NUnitTests")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("266f48a7-387e-44a4-a4ee-d9165ea2444b")]
+[assembly: Guid("736167aa-ddd4-4421-aab1-c51082b8ddb7")]
 
 // Version information for an assembly consists of the following four values:
 //
