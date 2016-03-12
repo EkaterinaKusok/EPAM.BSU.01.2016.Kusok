@@ -10,11 +10,11 @@ namespace GcdCalculationAlgorithms
 {
     public class CalculationGcd
     {
-        public static int EuclideanAlgorithm(int first, int second, out TimeSpan workingTime)
+        public static int EuclideanAlgorithm(out TimeSpan workingTime, int first, int second)
         {
             if (first < 0 || second < 0)
             {
-                throw new FormatException("At least one of the parameters < 0 !");
+                throw new ArgumentOutOfRangeException(" At least one of the parameters < 0.");
             }
             Stopwatch stopWatch = new Stopwatch();
             try
@@ -36,11 +36,32 @@ namespace GcdCalculationAlgorithms
             }
         }
 
-        public static int SteinAlgorithm(int first, int second, out TimeSpan workingTime)
+        public static int EuclideanAlgorithm(out TimeSpan workingTime, params int[] numbers)
+        {
+            if (numbers == null)
+            {
+                throw new ArgumentNullException();
+            }
+            if (numbers.Length < 2)
+            {
+                throw new ArgumentException("The number of values < 2.");
+            }
+            Stopwatch stopWatch = new Stopwatch();
+            stopWatch.Start();
+            TimeSpan current;
+            int result = numbers[0];
+            for (int i = 1; i < numbers.Length; i++)
+                result = EuclideanAlgorithm(out current, result, numbers[i]);
+            stopWatch.Stop();
+            workingTime = stopWatch.Elapsed;
+            return result;
+        }
+
+        public static int SteinAlgorithm(out TimeSpan workingTime, int first, int second)
         {
             if (first < 0 || second < 0)
             {
-                throw new FormatException("At least one of the parameters < 0 !");
+                throw new ArgumentOutOfRangeException("At least one of the parameters < 0 !");
             }
             Stopwatch stopWatch = new Stopwatch();
             try
@@ -88,5 +109,27 @@ namespace GcdCalculationAlgorithms
             }
 
         }
+
+        public static int SteinAlgorithm(out TimeSpan workingTime, params int[] numbers)
+        {
+            if (numbers == null)
+            {
+                throw new ArgumentNullException();
+            }
+            if (numbers.Length < 2)
+            {
+                throw new ArgumentException("The number of values < 2.");
+            }
+            Stopwatch stopWatch = new Stopwatch();
+            stopWatch.Start();
+            TimeSpan current;
+            int result = numbers[0];
+            for (int i = 1; i < numbers.Length; i++)
+                result = SteinAlgorithm(out current, result, numbers[i]);
+            stopWatch.Stop();
+            workingTime = stopWatch.Elapsed;
+            return result;
+        }
+
     }
 }
