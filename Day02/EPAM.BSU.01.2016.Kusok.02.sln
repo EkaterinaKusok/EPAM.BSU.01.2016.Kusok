@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GcdCalculationAlgorithms", "NodCalculationAlgorithms\GcdCalculationAlgorithms.csproj", "{EAF70623-C3F9-43B0-A686-8944B8CC197A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GcdCalculationAlgorithms", "GcdCalculationAlgorithms\GcdCalculationAlgorithms.csproj", "{EAF70623-C3F9-43B0-A686-8944B8CC197A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GcdCalculationAlgorithmsTests", "CalculationGcdTests\GcdCalculationAlgorithmsTests.csproj", "{10A171FA-4FCF-4800-AA55-1AABBB5B5558}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GcdCalculationAlgorithmsTests", "GcdCalculationAlgorithmsTests\GcdCalculationAlgorithmsTests.csproj", "{10A171FA-4FCF-4800-AA55-1AABBB5B5558}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormattedOutput", "FormattedOutput\FormattedOutput.csproj", "{3E0EC82F-7C6C-4E66-8814-E778D785BE89}"
 EndProject

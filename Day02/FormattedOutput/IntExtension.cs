@@ -43,7 +43,7 @@ namespace FormattedOutput
 
         private static int[] ToHexDigitsIndexs(int decValue)
         {
-            int[] digInd = new int[8] {0,0,0,0,0,0,0,0};
+            int[] digInd = new int[8];
             int index = 7;
             do
             {

@@ -48,7 +48,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NodCalculationAlgorithms\GcdCalculationAlgorithms.csproj">
+    <ProjectReference Include="..\GcdCalculationAlgorithms\GcdCalculationAlgorithms.csproj">
       <Project>{eaf70623-c3f9-43b0-a686-8944b8cc197a}</Project>
       <Name>GcdCalculationAlgorithms</Name>
     </ProjectReference>
