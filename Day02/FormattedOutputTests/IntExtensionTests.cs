@@ -23,8 +23,6 @@ namespace FormattedOutputTests
                 yield return new TestCaseData(-2147483648).Returns("80000000");
                 yield return new TestCaseData(-2134896640).Returns("80C01000");
                 yield return new TestCaseData(-300).Returns("FFFFFED4");
-
-                //yield return new TestCaseData(new int[] { 0, 20, -1 }).Throws(typeof(ArgumentOutOfRangeException));
             }
         }
 
