@@ -54,7 +54,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\N_th_root\FindRoot.csproj">
+    <ProjectReference Include="..\FindRoot\FindRoot.csproj">
       <Project>{266f48a7-387e-44a4-a4ee-d9165ea2444b}</Project>
       <Name>FindRoot</Name>
     </ProjectReference>
