@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GcdCalculationAlgorithms", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GcdCalculationAlgorithmsTests", "CalculationGcdTests\GcdCalculationAlgorithmsTests.csproj", "{10A171FA-4FCF-4800-AA55-1AABBB5B5558}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormattedOutput", "FormattedOutput\FormattedOutput.csproj", "{3E0EC82F-7C6C-4E66-8814-E778D785BE89}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormattedOutputTests", "FormattedOutputTests\FormattedOutputTests.csproj", "{E211ADBB-F99C-4FD2-8766-3009ADC247C0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{10A171FA-4FCF-4800-AA55-1AABBB5B5558}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{10A171FA-4FCF-4800-AA55-1AABBB5B5558}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{10A171FA-4FCF-4800-AA55-1AABBB5B5558}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E0EC82F-7C6C-4E66-8814-E778D785BE89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E0EC82F-7C6C-4E66-8814-E778D785BE89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E0EC82F-7C6C-4E66-8814-E778D785BE89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E0EC82F-7C6C-4E66-8814-E778D785BE89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E211ADBB-F99C-4FD2-8766-3009ADC247C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E211ADBB-F99C-4FD2-8766-3009ADC247C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E211ADBB-F99C-4FD2-8766-3009ADC247C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E211ADBB-F99C-4FD2-8766-3009ADC247C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
