@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Globalization;
 
 namespace CustomerToString
@@ -33,25 +29,24 @@ namespace CustomerToString
         public string ToString(string format, IFormatProvider provider)
         {
             // Handle null or empty arguments.
-            if (String.IsNullOrEmpty(format)) format = "NPR";
+            if (String.IsNullOrEmpty(format)) format = "N";
             // Remove any white space and convert to uppercase.
             format = format.Trim().ToUpperInvariant();
 
-            if (provider == null) provider = NumberFormatInfo.CurrentInfo;
+            if (provider == null) provider = CultureInfo.InvariantCulture;
 
             switch (format)
             {
                 case "NPR":
-                    return "CustomerRecord: " + this.Name + ", " + this.ContactPhone + ", " +
-                           this.Revenue.ToString(provider);
+                    return String.Format(provider, "{0}", this.Name) + ", " + String.Format(provider, "{0}", this.ContactPhone) + ", " + String.Format(provider, "{0:C}", this.Revenue);
+                case "NRP":
+                    return String.Format(provider, "{0}", this.Name) + ", " + String.Format(provider,"{0:C}",this.Revenue) + ", " + String.Format(provider, "{0}", this.ContactPhone);
                 case "N":
-                    return "CustomerRecord: " + this.Name;
+                    return String.Format(provider, "{0}", this.Name);
                 case "P":
-                    return "CustomerRecord: " + this.ContactPhone;
+                    return String.Format(provider, "{0}", this.ContactPhone);
                 case "R":
-                    return "CustomerRecord: " + this.Revenue.ToString("0,0", provider);
-                case "R,":
-                    return "CustomerRecord: " + this.Revenue.ToString("0,0", CultureInfo.InvariantCulture);
+                    return String.Format(provider, "{0:C}", this.Revenue);
                 default:
                     throw new FormatException(String.Format("The '{0}' format string is not supported.", format));
             }
