@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization.Formatters;
@@ -8,74 +9,64 @@ using System.Threading.Tasks;
 namespace JaggedArray
 {
     public enum Orders { Ascending, Descending };
-    public enum Keys { MinValue, MaxValue, Sum };
+  
     public class SortClass
     {
+        private IComparer<Int32[]> _sortType;
+        public SortClass(IComparer<Int32[]> sortType)
+        {
+            _sortType = sortType;
+        }
+        public void SetSortType(IComparer<Int32[]> sortType)
+        {
+            _sortType = sortType;
+        }
 
-        public static int[][] SortJaggedArray(int[][] arr, Orders ord, Keys key)
+        public int[][] SortJaggedArray(int[][] arr, Orders ord=Orders.Ascending)
         {
             if (arr == null || arr.Length==0)
                 return arr;
-            ArrayWrapper[] innerArray = new ArrayWrapper[arr.Length];
-            for(int i=0;i<arr.Length;i++)
-                innerArray[i]=new ArrayWrapper(arr[i],key);
-
-            ArrayWrapper temp;
             bool exit = false;
+            int[] temp = null;
             while (!exit) // пока массив не отсортирован
             {
                 exit = true;
                 for (int i = 0; i < arr.Length-1; i++)
-                    if (innerArray[i].Compare(innerArray[i + 1])>0) // сравниваем два соседних элемента
+                    if (_sortType.Compare(arr[i], arr[i + 1])>0) // сравниваем два соседних элемента
                     {
                         // выполняем перестановку элементов массива
-                        temp = innerArray[i];
-                        innerArray[i] = innerArray[i + 1];
-                        innerArray[i + 1] = temp;
+                        temp = arr[i];
+                        arr[i] = arr[i + 1];
+                        arr[i + 1] = temp;
                         exit = false; // на очередной итерации была произведена перестановка элементов
                     }
             }
-            for (int i = 0; i < innerArray.Length; i++)
-                arr[(ord==Orders.Ascending)?i:(innerArray.Length)-i-1] = innerArray[i].value;
+            if (ord == Orders.Descending)
+                Array.Reverse(arr);
             return arr;
         }
     }
 
-    class ArrayWrapper
+   /* class ArrayWrapperMax : IComparable<Int32[]>
     {
         private long? key { get; set; }
         public int[] value { get; set; }
-        public ArrayWrapper(int[] arr, Keys k)
+
+        public ArrayWrapperMax(int[] arr, Keys k)
         {
             if (arr == null || arr.Length == 0)
                 key = null;
             else
             {
-                switch (k)
-                {
-                    case Keys.MinValue:
-                        key = arr[0];
-                        for (int i = 1; i < arr.Length; i++)
-                            if (arr[i] < key)
-                                key = arr[i];
-                        break;
-                    case Keys.MaxValue:
-                        key = arr[0];
-                        for (int i = 1; i < arr.Length; i++)
-                            if (arr[i] > key)
-                                key = arr[i];
-                        break;
-                    case Keys.Sum:
-                        key = 0;
-                        for (int i = 0; i < arr.Length; i++)
-                            key += arr[i];
-                        break;
-                }
+                key = arr[0];
+                for (int i = 1; i < arr.Length; i++)
+                    if (arr[i] > key)
+                        key = arr[i];
             }
             value = arr;
         }
 
-        public long Compare(ArrayWrapper second)
+        public int CompareTo(int[] second)
         {
             if (key == null)
             {
@@ -108,5 +99,5 @@ namespace JaggedArray
                 return (long)key - (long)second.key;
             }
         }
-    }
+    }*/
 }
