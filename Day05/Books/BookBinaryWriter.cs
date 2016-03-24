@@ -11,16 +11,17 @@ namespace Books
     {
         public bool SaveBooksCollection(Stream stream, List<Book> books)
         {
-            using (BinaryWriter writer = new BinaryWriter(stream))
+            using (BinaryWriter binaryWriter = new BinaryWriter(stream))
             {
                 foreach (var book in books)
                 {
-                    writer.Write(book.AuthorName);
-                    writer.Write(book.BookName);
-                    writer.Write(book.Genre);
-                    writer.Write(book.PublishingYear);
-                    writer.Write(book.NumberOfPages);
+                    binaryWriter.Write(book.AuthorName);
+                    binaryWriter.Write(book.BookName);
+                    binaryWriter.Write(book.Genre);
+                    binaryWriter.Write(book.PublishingYear);
+                    binaryWriter.Write(book.NumberOfPages);
                 }
+                binaryWriter.Close();
             }
             return true;
         }

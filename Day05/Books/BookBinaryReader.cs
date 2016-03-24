@@ -19,16 +19,8 @@ namespace Books
                     books.Add(new Book(binaryReader.ReadString(), binaryReader.ReadString(), binaryReader.ReadString(),
                         binaryReader.ReadInt32(), binaryReader.ReadInt32()));
                 }
+                binaryReader.Close();
             }
-            //var binaryReader= new BinaryReader(stream);
-            //string currentString= "";
-            //stream.Seek(0, SeekOrigin.Begin);
-            //while (binaryReader.PeekChar() != -1)
-            //{
-            //    books.Add(new Book(binaryReader.ReadString(),binaryReader.ReadString(),binaryReader.ReadString(),
-            //        binaryReader.ReadInt32(),binaryReader.ReadInt32()));
-            //}
-            //binaryReader.Dispose();
             return books;
         }
     }

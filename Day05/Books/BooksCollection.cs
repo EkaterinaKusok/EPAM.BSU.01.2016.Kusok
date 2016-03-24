@@ -30,25 +30,15 @@ namespace Books
                     }
                 }
                 return true;
-
             }
-            catch (FileNotFoundException ex)
+            catch (IOException ex )
             {
-                throw new FileNotFoundException("File not found!", ex);
-            }
-            catch (FileLoadException ex)
-            {
-                throw new FileNotFoundException("File not found!", ex);
-            }
-            catch (FieldAccessException ex)
-            {
-                throw new FileNotFoundException("File not found!", ex);
+                throw new IOException("File can not be processed!", ex);
             }
         }
 
         public bool SaveBooksCollection(string path)
         {
-
             using (Stream stream = File.Open(path, FileMode.OpenOrCreate))
             {
                 _bookWriter.SaveBooksCollection(stream, _booksList);
@@ -58,7 +48,6 @@ namespace Books
 
         public bool AddBook(string authorName, string bookName, string genre, int publishingYear, int numberOfPages)
         {
-            // AddBook (добавить книгу, если такой книги нет, в противном случае выбросить исключение);
             Book currentBook = new Book(authorName, bookName, genre, publishingYear, numberOfPages);
             if (_booksList.Find(x => x.Equals(currentBook)) == null)
             {
@@ -66,12 +55,10 @@ namespace Books
                 return true;
             }
             throw new ApplicationException("This book already exist!");
-            //return false;
         }
 
         public bool RemoveBook(string bookName)
         {
-            // RemoveBook(удалить книгу, если она есть, в противном случае выбросить исключение);
             Book currentBook = _booksList.Find(x => x.BookName.Equals(bookName));
             if (currentBook != null)
             {
@@ -79,7 +66,6 @@ namespace Books
                 return true;
             }
             throw new ApplicationException("This book doesn't exist!");
-            //return false;
         }
 
         public Book[] FindByBookName(string bookName)

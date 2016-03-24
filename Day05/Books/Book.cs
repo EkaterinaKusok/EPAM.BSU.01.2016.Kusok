@@ -26,63 +26,55 @@ namespace Books
             _publishingYear = DateTime.Now.Year;
             _numberOfPages = 0;
         }
+
         internal Book(string authorName, string bookName, string genre, int publishingYear, int numberOfPages)
         {
+            if (publishingYear > DateTime.Now.Year) throw new ArgumentException("Year won't be in furure!");
+            if (numberOfPages < 0) throw new ArgumentException("Book couldn'h have less 0 pages");
             _authorName = authorName;
             _bookName = bookName;
             _genre = genre;
             _publishingYear = publishingYear;
             _numberOfPages = numberOfPages;
         }
-        internal Book(string [] data)
+
+        internal Book(string[] data)
         {
             if (data.Length > 4)
             {
                 _authorName = data[0];
                 _bookName = data[1];
                 _genre = data[2];
-                try
-                {
-                    _publishingYear = Int32.Parse(data[3].Trim());
-                    _numberOfPages = Int32.Parse(data[4].Trim());
-                }
-                catch (FormatException ex)
-                {
-                    throw new ArgumentException("Wrong input data", ex);
-                }
+                Int32.TryParse((data[3].Trim()), out _publishingYear);
+                    //throw new ArgumentException("Wrong input data (String parse to int). "); ;
+                Int32.TryParse((data[4].Trim()), out _numberOfPages);
             }
-            else 
+            else
                 throw new ArgumentException("Wrong number of patameters.");
         }
 
         public override bool Equals(System.Object obj)
         {
-            // If parameter is null return false.
             if (obj == null)
                 return false;
-            // If parameter cannot be cast to Book return false.
             Book b = obj as Book;
             if ((System.Object)b == null)
                 return false;
-            // Return true if the fields match:
-            return ((_authorName.Equals(b._authorName)) && (_bookName.Equals(b._bookName)) && _genre.Equals(b._genre)
-                && (_numberOfPages.Equals(b._numberOfPages)) && (_publishingYear.Equals(b._publishingYear)));
+            return this.Equals(b);
         }
 
         public bool Equals(Book b)
         {
-            // If parameter is null return false:
             if ((object)b == null)
                 return false;
             // Return true if the fields match:
-            return ((_authorName.Equals(b._authorName)) && (_bookName.Equals(b._bookName)) &&
-                    _genre.Equals(b._genre)
+            return ((_authorName.Equals(b._authorName)) && (_bookName.Equals(b._bookName)) && _genre.Equals(b._genre)
                     && (_numberOfPages.Equals(b._numberOfPages)) && (_publishingYear.Equals(b._publishingYear)));
         }
 
         public override int GetHashCode()
         {
-            return _numberOfPages ^ _publishingYear;
+            return _authorName.GetHashCode()^_bookName.GetHashCode()^_genre.GetHashCode()^_numberOfPages ^ _publishingYear;
         }
 
         public override string ToString()
