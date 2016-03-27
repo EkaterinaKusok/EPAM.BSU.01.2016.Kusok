@@ -3,24 +3,23 @@ using System.Diagnostics;
 
 namespace GcdCalculationAlgorithms
 {
+    public delegate int GcdAlgorithm(int first, int second);
+
     public class CalculationGcd
     {
         public enum Algorithms { Euclidean, Stein };
 
-        public static int GCD(Algorithms algorithm, int first, int second)
+        public static int GCD(GcdAlgorithm algorithm, int first, int second)
         {
-            if (algorithm == Algorithms.Euclidean)
-                return EuclideanAlgorithm(first, second);
-            else
-                return SteinAlgorithm(first, second);
+            return algorithm(first, second);
         }
 
-        public static int GCD(Algorithms algorithm, int first, int second, int third)
+        public static int GCD(GcdAlgorithm algorithm, int first, int second, int third)
         {
             return GCD(algorithm, GCD(algorithm, first, second), third);
         }
 
-        public static int GCD(Algorithms algorithm = Algorithms.Euclidean, params int[] numbers)
+        public static int GCD(GcdAlgorithm algorithm, params int[] numbers)
         {
             if (numbers == null)
                 throw new ArgumentNullException();
@@ -32,21 +31,18 @@ namespace GcdCalculationAlgorithms
             return result;
         }
 
-        public static int GCD(out TimeSpan workingTime, Algorithms algorithm, int first, int second)
+        public static int GCD(out TimeSpan workingTime, GcdAlgorithm algorithm, int first, int second)
         {
             int result = 0;
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
-            if (algorithm == Algorithms.Euclidean)
-                result = EuclideanAlgorithm(first, second);
-            else
-                result = SteinAlgorithm(first, second);
+            result = algorithm(first, second);
             stopWatch.Stop();
             workingTime = stopWatch.Elapsed;
             return result;
         }
 
-        public static int GCD(out TimeSpan workingTime, Algorithms algorithm, int first, int second, int third)
+        public static int GCD(out TimeSpan workingTime, GcdAlgorithm algorithm, int first, int second, int third)
         {
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
@@ -57,7 +53,7 @@ namespace GcdCalculationAlgorithms
             return result;
         }
 
-        public static int GCD(out TimeSpan workingTime, Algorithms algorithm, params int[] numbers)
+        public static int GCD(out TimeSpan workingTime, GcdAlgorithm algorithm, params int[] numbers)
         {
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
@@ -73,7 +69,7 @@ namespace GcdCalculationAlgorithms
             return result;
         }
 
-        private static int EuclideanAlgorithm(int first, int second)
+        public static int EuclideanAlgorithm(int first, int second)
         {
             if (first < 0 || second < 0)
                 throw new ArgumentOutOfRangeException(" At least one of the parameters < 0.");
@@ -85,7 +81,7 @@ namespace GcdCalculationAlgorithms
             return first;
         }
 
-        private static int SteinAlgorithm(int first, int second)
+        public static int SteinAlgorithm(int first, int second)
         {
             if (first < 0 || second < 0)
                 throw new ArgumentOutOfRangeException("At least one of the parameters < 0 !");

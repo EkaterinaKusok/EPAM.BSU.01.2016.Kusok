@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.AccessControl;
 using NUnit.Framework;
 using static GcdCalculationAlgorithms.CalculationGcd;
 
@@ -12,7 +13,6 @@ namespace GcdCalculationAlgorithmsTests
 
         public IEnumerable<TestCaseData> TestData
         {
-
             get
             {
                 yield return new TestCaseData(new int[] {8, 16}).Returns(8);
@@ -33,8 +33,7 @@ namespace GcdCalculationAlgorithmsTests
         [Test, TestCaseSource(nameof(TestData))]
         public int EuclideanAlgorithm_FindGcd_WithYield(params int[] data)
         {
-
-            int result = GCD(out _workingTime, Algorithms.Euclidean, data);
+            int result = GCD(out _workingTime, EuclideanAlgorithm, data);
            // Debug.WriteLine(_workingTime.TotalMilliseconds);
             return result;
         }
@@ -42,7 +41,7 @@ namespace GcdCalculationAlgorithmsTests
         [Test, TestCaseSource(nameof(TestData))]
         public int SteinAlgorithm_FindGcd_WithYield(params int[] data)
         {
-            int result = GCD(out _workingTime, Algorithms.Stein, data);
+            int result = GCD(out _workingTime, SteinAlgorithm, data);
             //Debug.WriteLine(_workingTime.TotalMilliseconds);
             return result;
         }
@@ -62,14 +61,15 @@ namespace GcdCalculationAlgorithmsTests
         [Test, TestCaseSource(nameof(TestData1))]
         public int EuclideanAlgorithm_FindGcdFor2Numbers_WithYield(int num1, int num2)
         {
-            int result = GCD(out _workingTime, Algorithms.Euclidean, num1, num2);
+            int result = GCD(out _workingTime, EuclideanAlgorithm, num1, num2);
             //Debug.WriteLine(_workingTime.Ticks);
             return result;
         }
+
         [Test, TestCaseSource(nameof(TestData1))]
         public int SteinAlgorithm_FindGcdFor2Numbers_WithYield(int num1, int num2)
         {
-            int result = GCD(out _workingTime, Algorithms.Stein, num1, num2);
+            int result = GCD(out _workingTime, SteinAlgorithm, num1,num2);
             //Debug.WriteLine(_workingTime.Ticks);
             return result;
         }
