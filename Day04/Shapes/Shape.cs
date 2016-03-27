@@ -1,21 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Shapes
 {
-    public class Shape
+    interface IShape
     {
-        public virtual double Area()
-        {
-            return 0;
-        }
-
-        public virtual double Perimeter()
-        {
-            return 0;
-        }
+        double Area();
+        double Perimeter();
     }
 }

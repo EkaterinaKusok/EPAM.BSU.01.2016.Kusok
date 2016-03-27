@@ -2,7 +2,7 @@
 
 namespace Shapes
 {
-    public class Square : Shape
+    public class Square : IShape
     {
         private double _side;
 
@@ -15,12 +15,12 @@ namespace Shapes
 
         public double Side { get; }
 
-        public override double Area()
+        public double Area()
         {
             return _side*_side;
         }
 
-        public override double Perimeter()
+        public double Perimeter()
         {
             return 4*_side;
         }

@@ -2,7 +2,7 @@
 
 namespace Shapes
 {
-    public class Circle : Shape
+    public class Circle : IShape
     {
         private double _radius;
 
@@ -15,12 +15,12 @@ namespace Shapes
 
         public double Radius { get;}
 
-        public override double Area()
+        public double Area()
         {
             return 3.14159265359 * _radius * _radius;
         }
 
-        public override double Perimeter()
+        public double Perimeter()
         {
             return 2 * 3.14159265359 * _radius;
         }

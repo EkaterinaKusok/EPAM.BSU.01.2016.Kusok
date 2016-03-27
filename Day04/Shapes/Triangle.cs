@@ -2,7 +2,7 @@
 
 namespace Shapes
 {
-    public class Triangle : Shape
+    public class Triangle : IShape
     {
         private double _sideA;
         private double _sideB;
@@ -21,13 +21,13 @@ namespace Shapes
         public double SideB { get; }
         public double SideC { get; }
 
-        public override double Area()
+        public double Area()
         {
             double semiPer = Perimeter()/2.0;
             return Math.Sqrt(semiPer*(semiPer-_sideA)*(semiPer-_sideB)*(semiPer-_sideC));
         }
 
-        public override double Perimeter()
+        public double Perimeter()
         {
             return _sideA+_sideB+_sideC;
         }

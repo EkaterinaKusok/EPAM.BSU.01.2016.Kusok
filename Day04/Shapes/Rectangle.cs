@@ -2,7 +2,7 @@
 
 namespace Shapes
 {
-    public class Rectangle : Shape
+    public class Rectangle : IShape
     {
         private double _width;
         private double _height;
@@ -29,12 +29,12 @@ namespace Shapes
             private set { _height = value; }
         }
 
-        public override double Area()
+        public double Area()
         {
             return _width * _height;
         }
 
-        public override double Perimeter()
+        public double Perimeter()
         {
             return 2 * (_width + _height);
         }
