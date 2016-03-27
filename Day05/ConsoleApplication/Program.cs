@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Books;
 using NLog;
 
@@ -16,23 +12,24 @@ namespace ConsoleApplication
 
         static void Main(string[] args)
         {
-
             try
             {
-                BooksCollection books1 = new BooksCollection();
+                List<Book> books1 = new List<Book>();
+                List<Book> books2 = new List<Book>();
+
                 try
                 {
-                    books1.DownloadBooksCollection("booklist.txt");
+                    books1 = BookServise.Load("booklist.txt");
                     logger.Info("Download books done!");
                 }
-                catch (IOException e)
+                catch (ApplicationException e)
                 {
                     logger.Error(e.ToString);
                 }
 
                 try
                 {
-                    books1.AddBook("Peter Jackson Junior", "Life book", "fantasy", 1960, -463);
+                    books1.Add(new Book("Peter Jackson Junior", "Life book", "fantasy", 1960, -463));
                     logger.Info("Add 1st book correct.");
                 }
                 catch (ArgumentException e)
@@ -43,7 +40,7 @@ namespace ConsoleApplication
                 }
                 try
                 {
-                    books1.AddBook("Andrey M", "Color man", "thriller", 2020, 543);
+                    books1.Add(new Book("Andrey M", "Color man", "thriller", 2020, 543));
                     logger.Info("Add 2nd book correct.");
                 }
                 catch (ArgumentException e)
@@ -52,31 +49,40 @@ namespace ConsoleApplication
                     //books1.AddBook("Andrey M", "Color man", "thriller", DateTime.Now.Year, 543);
                     //logger.Debug("Add new Book with correct parameters.");
                 }
-                //books1.AddBook("Barry Ar", "Cook book", "helper", 1990, 93);
-                //books1.AddBook("Ivan Srt", "Just do it", "roman", 0, 115);
-                //books1.AddBook("Marti", "#10", "detective", 2000, 403);
                 try
                 {
-                    books1.SaveBooksCollection("booklist.txt");
+                    BookServise.Save("booklist.txt", books1);
                     logger.Info("Save books done correct!");
                 }
-                catch (IOException e)
+                catch (ApplicationException e)
                 {
                     logger.Error(e.ToString);
                 }
 
                 Console.WriteLine("--------List of books---------");
-                Console.WriteLine(books1.ToString());
+                foreach (var current in books1)
+                    Console.WriteLine(current.ToString());
+
+                books1.Sort(new CompareBooksByAuthorName());
+                books1.Sort(new CompareBooksByGenre());
+                books1.Sort(new CompareBooksByPublishingYear());
+                books1.Sort(new CompareBooksByNubberOfPages());
+                books1.Sort(new CompareBooksByBookTitle());
                 Console.WriteLine("--------Sort by name of books---------");
-                books1.SortByBookName();
-                Console.WriteLine(books1.ToString());
+                foreach (var current in books1)
+                    Console.WriteLine(current.ToString());
+
+                books2 = books1.FindAll(x => x.BookTitle.Contains("Book"));
+                books2 = books1.FindAll(x => x.Genre.Contains("fantasy"));
+                books2 = books1.FindAll(x => x.PublishingYear.Equals(2016));
+                books2 = books1.FindAll(x => x.NumberOfPages.Equals(300));
+                books2 = books1.FindAll(x => x.AuthorName.Contains("Author"));
                 Console.WriteLine("--------Find by name of author : 'Author' ---------");
-                Book[] findBooks = books1.FindByAuthorName("Author");
-                foreach (var current in findBooks)
+                foreach (var current in books2)
                     Console.WriteLine(current.ToString());
                 try
                 {
-                    books1.AddBook("Author 0", "AName 10", "roman", 1560, 115);
+                    books1.Add(new Book("Author 0", "AName 10", "roman", 1560, 115));
                     logger.Info("Book add correct!");
                 }
                 catch (ApplicationException e)
