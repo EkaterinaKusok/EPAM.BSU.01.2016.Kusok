@@ -8,22 +8,44 @@ using FindRoot;
 
 namespace CheckResults
 {
-    class Program
+    public class CompareMaxAbcAsc1 : IComparer<Int32[]>
     {
+        public CompareMaxAbcAsc1() { }
+        public int Compare(int[] obj1, int[] obj2)
+        {
+            if (obj1 == null && obj2 == null) return 0;
+            if (obj1 == null) return -1;
+            if (obj2 == null) return 1;
+            if (obj1.Length == 0 && obj2.Length == 0) return 0;
+            if (obj1.Length == 0) return -1;
+            if (obj2.Length == 0) return 1;
+            // сейчас в обоих массивах есть хотя бы по одному элементу
+            long key1 = obj1[0], key2 = obj2[0];
+            for (int i = 1; i < obj1.Length; i++)
+                if (Math.Abs(obj1[i]) > key1)
+                    key1 = Math.Abs(obj1[i]);
+            for (int i = 1; i < obj2.Length; i++)
+                if (Math.Abs(obj2[i]) > key2)
+                    key2 = Math.Abs(obj2[i]);
+            if (key1 - key2 > 0) return 1;
+            if (key1 == key2) return 0;
+            return -1;
+        }
+    }
+
+    class Program 
+    {
+        
+
         static void Main(string[] args)
         {
-            double x = -8;
-            int n = 3;
-            Console.Write(MathClass.FindNthRoot(x,n,0.0001));
-            Console.WriteLine();
-            Console.Write(Math.Pow(x, (double)1/n));
-            Console.WriteLine();
-            Console.WriteLine("------------------------------");
+
             int[][] arr = new int[][] {null, new int[] {1, 4, 6}, new int[] { -1, 0, -1100 }, new int[] { 5, 5, 5 } , new int[] { } };
-            SortClass cl = new SortClass(new ElementsSum());
+            
             Console.WriteLine("По сумме элементов:");
             // Выполняем операцию, которая использует первый тип сортировки
-            cl.SortJaggedArray(arr, Orders.Ascending);
+
+            //SortClass.SortJaggedArray(arr, CompareMaxAbcAsc.Compare);
             foreach (var cur in arr)
             {
                 if (cur == null)
@@ -34,8 +56,8 @@ namespace CheckResults
             }
             Console.WriteLine("По максимальному модулю:");
             // Заменяем в тип сортировки на другой
-            cl.SetSortType(new MaxAbcElement());
-            cl.SortJaggedArray(arr,Orders.Descending);
+            SortClass1.SortJaggedArray(arr, CompareByMaxAbcAsc);
+            SortClass1.SortJaggedArray(arr, new CompareSumAsc());
             foreach (var cur in arr)
             {
                 if(cur == null)
@@ -47,5 +69,26 @@ namespace CheckResults
 
             Console.ReadKey();
         }
-    }
+        
+        public static int CompareByMaxAbcAsc(int[] obj1, int[] obj2)
+        {
+            if (obj1 == null && obj2 == null) return 0;
+            if (obj1 == null) return -1;
+            if (obj2 == null) return 1;
+            if (obj1.Length == 0 && obj2.Length == 0) return 0;
+            if (obj1.Length == 0) return -1;
+            if (obj2.Length == 0) return 1;
+            // сейчас в обоих массивах есть хотя бы по одному элементу
+            long key1 = obj1[0], key2 = obj2[0];
+            for (int i = 1; i < obj1.Length; i++)
+                if (Math.Abs(obj1[i]) > key1)
+                    key1 = Math.Abs(obj1[i]);
+            for (int i = 1; i < obj2.Length; i++)
+                if (Math.Abs(obj2[i]) > key2)
+                    key2 = Math.Abs(obj2[i]);
+            if (key1 - key2 > 0) return 1;
+            if (key1 == key2) return 0;
+            return -1;
+        }
+   }
 }

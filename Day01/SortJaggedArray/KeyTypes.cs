@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace JaggedArray
 {
-    public class MaxAbcElement : IComparer<Int32[]>
+    public class CompareMaxAbcAsc : IComparer<Int32[]>
     {
-        public int Compare(int[] obj1, int[] obj2)
+        public  int Compare(int[] obj1, int[] obj2)
         {
             if (obj1 == null && obj2 == null) return 0;
             if (obj1 == null) return -1;
@@ -27,7 +26,7 @@ namespace JaggedArray
             return -1;
         }
     }
-    public class ElementsSum : IComparer<Int32[]>
+    public class CompareSumAsc : IComparer<Int32[]>
     {
         public int Compare(int[] obj1, int[] obj2)
         {
