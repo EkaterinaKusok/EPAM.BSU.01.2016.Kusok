@@ -24,23 +24,5 @@ namespace FindRoot
             } while (Math.Abs(next - prev) > eps);
             return next;
         }
-
-        /*private static double QuickInvolute(double x, int n)
-        {
-            if (n < 0)
-                throw new FormatException($"Wrong input data: {n}<0!");
-            if (n == 0)
-                return 1;
-            double z = x;
-            double res = 1;
-            while (n > 0)
-            {
-                if (n%2 == 1)
-                    res *= z;
-                z *= z;
-                n /= 2;
-            }
-            return res;
-        }*/
     }
 }
