@@ -10,11 +10,11 @@ namespace BinarySearch
     {
         public static int Find<T>(T[] array, T searchFor, Comparer<T> comparer = null) //Comparer<T>.Default 
         {
-            int left = 0, right = array.Length, mid;
             if (array == null || array.Length == 0) return -1; //  throw new NullReferenceException();
+            int left = 0, right = array.Length, mid;
             if (comparer == null)
             {
-                if (searchFor is IComparer<T>)
+                if (searchFor is IComparer<T>) // не работает проверка
                     comparer = Comparer<T>.Default;
                 else
                     return SimpleSearch(array, searchFor);
@@ -31,7 +31,7 @@ namespace BinarySearch
                 else
                     left = mid + 1;
             }
-            return -(1 + left); //~left
+            return ~left; //-(1 + left); 
         }
 
         private static int SimpleSearch<T>(T[] array, T searchFor)
@@ -39,7 +39,7 @@ namespace BinarySearch
             for (int i=0;i<array.Length;i++)
                 if (array[i].Equals(searchFor))
                     return i;
-            return -1;
+            return -100;
         }
     }
 }

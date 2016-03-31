@@ -37,7 +37,7 @@ namespace CustomQueue
         public T Dequeue()
         {
             if (Count < 1)
-                throw new InvalidOperationException("Queue is empty!"); //Exception("Очередь пустая!");
+                throw new InvalidOperationException("Queue is empty!"); 
             T tmp = _head.Value;
             _head = _head.Next;
             Count--;
@@ -48,6 +48,50 @@ namespace CustomQueue
             if (Count == 0)
                 throw new InvalidOperationException("Queue is empty!");
             return _head.Value;
+        }
+
+        public CustomQueue(T[] array)
+        {
+            for (int i = 0; i < array.Length; i++)
+                Enqueue(array[i]);
+        }
+
+        public CustomIterator GetEnumerator()
+        {
+            return new CustomIterator(this);
+        }
+
+        public struct CustomIterator
+        {
+            private readonly CustomQueue<T> collection;
+            private Node currentNode;
+
+            public CustomIterator(CustomQueue<T> collection)
+            {
+                this.currentNode = null;
+                this.collection = collection;
+            }
+
+            public T Current
+            {
+                get
+                {
+                    if (currentNode == null)
+                    {
+                        throw new InvalidOperationException();
+                    }
+                    return currentNode.Value;
+                }
+            }
+
+            public bool MoveNext()
+            {
+                if (currentNode == null)
+                    currentNode = collection._head;
+                else
+                    currentNode = currentNode.Next;
+                return currentNode != null;
+            }
         }
 
         private class Node
