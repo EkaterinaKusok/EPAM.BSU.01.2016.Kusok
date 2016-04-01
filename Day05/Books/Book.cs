@@ -2,7 +2,7 @@
 
 namespace Books
 {
-    public class Book : IEquatable<Book>
+    public class Book : IEquatable<Book>, IComparable<Book>
     {
         private string _authorName;
         private string _bookTitle;
@@ -70,6 +70,11 @@ namespace Books
                 throw new ArgumentException("Wrong number of patameters.");
         }
 
+        public int CompareTo(Book book)
+        {
+            return this._bookTitle.CompareTo(book._bookTitle);
+        }
+
         public override bool Equals(System.Object obj)
         {
             if (obj == null)
@@ -97,8 +102,8 @@ namespace Books
 
         public override string ToString()
         {
-            return _authorName + " -  \"" + _bookTitle + "\"  - " + _genre + " - " + _publishingYear.ToString() + " - " +
-                   _numberOfPages.ToString();
+            return _authorName + " -  \"" + _bookTitle + "\"  - " + _genre + " - " + _publishingYear + " - " +
+                   _numberOfPages;
         }
     }
 }

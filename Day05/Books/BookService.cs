@@ -6,14 +6,21 @@ namespace Books
 {
     public sealed class BookServise
     {
-        private static IRepository _repository = new BinaryRepository();
+        public List<Book> BooksList{ get; set; }
 
-        public static List<Book> Load(string path)
+        public BookServise() { }
+        public BookServise(IEnumerable<Book> collection)
+        {
+            foreach (var variable in collection)
+                BooksList.Add(variable);
+        }
+
+        public bool Load(string path, IRepository repository)
         {
             try
             {
-                List<Book> newBooksList = _repository.Load(path);
-                return newBooksList;
+                this.BooksList = (List<Book>)repository.Load(path);
+                return true;
             }
             catch (IOException ex)
             {
@@ -21,11 +28,11 @@ namespace Books
             }
         }
 
-        public static bool Save(string path, List<Book> bookList)
+        public bool Save(string path, IRepository repository)
         {
             try
             {
-                _repository.Save(path, bookList);
+                repository.Save(path, this.BooksList);
             }
             catch (IOException ex)
             {
@@ -34,23 +41,23 @@ namespace Books
             return true;
         }
 
-        public static List<Book> RemoveBookByTitle(string bookTitle, List<Book> booksList)
+        public bool RemoveBookByTitle(string bookTitle)
         {
-            Book currentBook = booksList.Find(x => x.BookTitle.Equals(bookTitle));
+            Book currentBook = BooksList.Find(x => x.BookTitle.Equals(bookTitle));
             if (currentBook != null)
             {
-                booksList.Remove(currentBook);
-                return booksList;
+                BooksList.Remove(currentBook);
+                return true;
             }
             throw new ApplicationException("This book doesn't exist!");
         }
     }
 
 
-    interface IRepository
+    public interface IRepository
     {
-        List<Book> Load(string path);
-        bool Save(string path, List<Book> books);
+        IEnumerable<Book> Load(string path);
+        bool Save(string path, IEnumerable<Book> books);
     }
 
     public class CompareBooksByAuthorName : Comparer<Book>

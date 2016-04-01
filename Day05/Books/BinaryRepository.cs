@@ -6,7 +6,7 @@ namespace Books
 {
     public class BinaryRepository : IRepository
     {
-        public List<Book> Load(string path)
+        public IEnumerable<Book> Load(string path)
         {
             List<Book> books = new List<Book>();
             using (Stream stream = File.OpenRead(path))
@@ -25,7 +25,7 @@ namespace Books
             return books;
         }
 
-        public bool Save(string path, List<Book> books)
+        public bool Save(string path, IEnumerable<Book> books)
         {
             try
             {
