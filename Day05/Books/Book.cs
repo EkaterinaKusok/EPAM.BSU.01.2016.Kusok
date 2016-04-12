@@ -2,7 +2,7 @@
 
 namespace Books
 {
-    public class Book : IEquatable<Book>, IComparable<Book>
+    [Serializable] public class Book : IEquatable<Book>, IComparable<Book>
     {
         private string _authorName;
         private string _bookTitle;

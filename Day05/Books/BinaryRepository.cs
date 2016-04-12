@@ -9,18 +9,29 @@ namespace Books
         public IEnumerable<Book> Load(string path)
         {
             List<Book> books = new List<Book>();
-            using (Stream stream = File.OpenRead(path))
+            try
             {
-                using (BinaryReader binaryReader = new BinaryReader(stream))
+                using (Stream stream = File.OpenRead(path))
                 {
-                    while (binaryReader.PeekChar() != -1)
+                    using (BinaryReader binaryReader = new BinaryReader(stream))
                     {
-                        books.Add(new Book(binaryReader.ReadString(), binaryReader.ReadString(),
-                            binaryReader.ReadString(),
-                            binaryReader.ReadInt32(), binaryReader.ReadInt32()));
+                        while (binaryReader.PeekChar() != -1)
+                        {
+                            books.Add(new Book(binaryReader.ReadString(), binaryReader.ReadString(),
+                                binaryReader.ReadString(),
+                                binaryReader.ReadInt32(), binaryReader.ReadInt32()));
+                        }
+                        binaryReader.Close();
                     }
-                    binaryReader.Close();
                 }
+            }
+            catch (FileNotFoundException ex)
+            {
+                throw new ApplicationException("File doesn't exist!", ex);
+            }
+            catch (IOException ex)
+            {
+                throw new ApplicationException("File can't be processed!", ex);
             }
             return books;
         }
@@ -47,7 +58,7 @@ namespace Books
             }
             catch (IOException ex)
             {
-                throw new IOException("File can't be processed!", ex);
+                throw new ApplicationException("File can't be processed!", ex);
             }
             return true;
         }

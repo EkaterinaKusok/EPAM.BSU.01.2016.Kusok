@@ -20,7 +20,7 @@ namespace ConsoleApplication
 
                 try
                 {
-                    servise.Load("booklist.txt",repository);
+                    servise.Load("booklist.bin", repository);
                     logger.Info("Download books done!");
                 }
                 catch (ApplicationException e)
@@ -52,7 +52,7 @@ namespace ConsoleApplication
                 }
                 try
                 {
-                    servise.Save("booklist.txt", repository);
+                    servise.Save("booklist.bin", repository);
                     logger.Info("Save books done correct!");
                 }
                 catch (ApplicationException e)
@@ -85,15 +85,29 @@ namespace ConsoleApplication
                 {
                     servise.BooksList.Add(new Book("Author 0", "AName 10", "roman", 1560, 115));
                     logger.Info("Book add correct!");
+
+                    IRepository serRepository = new BinarySerializableRepository();
+                    servise.Save("serialize.bin", serRepository);
+                    servise.Load("serialize.bin", serRepository);
+                    Console.WriteLine("--------Deserialization---------");
+                    foreach (var current in servise.BooksList)
+                        Console.WriteLine(current.ToString());
+                    IRepository xmlRepository = new XmlRepository();
+                    servise.Save("xmlBooks.xml", xmlRepository);
+                    servise.Load("xmlBooks.xml", xmlRepository);
+                    Console.WriteLine("--------From Xml---------");
+                    foreach (var current in servise.BooksList)
+                        Console.WriteLine(current.ToString());
                 }
                 catch (ApplicationException e)
                 {
+                    //Console.WriteLine(e.Message);
                     logger.Error(e.ToString);
                 }
             }
             catch (Exception e)
             {
-                logger.Fatal( "Unexpected error!",e.InnerException.ToString());
+                logger.Fatal("Unexpected error!", e.ToString());
             }
         }
     }

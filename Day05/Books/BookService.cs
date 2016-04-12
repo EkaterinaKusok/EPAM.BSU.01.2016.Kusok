@@ -22,9 +22,9 @@ namespace Books
                 this.BooksList = (List<Book>)repository.Load(path);
                 return true;
             }
-            catch (IOException ex)
+            catch (ApplicationException ex)
             {
-                throw new ApplicationException("Operation can't be done!", ex);
+                throw new ApplicationException("Operation 'Load' can't be done!", ex);
             }
         }
 
@@ -34,9 +34,9 @@ namespace Books
             {
                 repository.Save(path, this.BooksList);
             }
-            catch (IOException ex)
+            catch (ApplicationException ex)
             {
-                throw new ApplicationException("Operation can't be done!", ex);
+                throw new ApplicationException("Operation 'Save' can't be done!", ex);
             }
             return true;
         }
